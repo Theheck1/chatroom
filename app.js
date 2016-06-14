@@ -34,16 +34,14 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var server = http.createServer(app);
+var io = require('socket.io')(server);
 
-server.listen(process.env.PORT || 3000, function () {
+server.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-server.listen(process.env.PORT || 3000);
-
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
     console.log('a user connected');
 
     mongo.connect(CUSTOMCONNSTR_MONGOLAB_URI, function (err, db) {
