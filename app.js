@@ -35,13 +35,13 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 var server = http.createServer(app);
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 
-server.listen(app.get('port'), function () {
+server.listen(process.env.PORT || 3000, function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
     console.log('a user connected');
 
     mongo.connect(CUSTOMCONNSTR_MONGOLAB_URI, function (err, db) {
