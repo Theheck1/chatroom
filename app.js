@@ -37,12 +37,6 @@ app.get('/users', user.list);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
-socket = new io.Socket();
-
 server.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
