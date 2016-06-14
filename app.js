@@ -9,7 +9,7 @@ var http = require('http');
 var path = require('path');
 var mongo = require('mongodb').MongoClient;
 
-var mongolabConStr = "mongodb://theheck1:12345@ds025973.mlab.com:25973/messages";
+var CUSTOMCONNSTR_MONGOLAB_URI = "mongodb://theheck1:12345@ds025973.mlab.com:25973/messages";
 
 var app = express();
 
@@ -44,7 +44,7 @@ serve.listen(app.get('port'), function () {
 io.on('connection', function (socket) {
     console.log('a user connected');
 
-    mongo.connect(mongolabConStr, function (err, db) {
+    mongo.connect(CUSTOMCONNSTR_MONGOLAB_URI, function (err, db) {
         if(err){
             console.warn(err.message);
         } else {
